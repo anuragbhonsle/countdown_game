@@ -1,0 +1,547 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto+Mono:wght@300;400;500&display=swap");
+
+:root {
+  /* Grok xAI Color Palette */
+  --grok-bg: #000814; /* Deep space black-blue */
+  --grok-void: #000000;
+  --grok-blue: #00f2ea; /* Electric Grok cyan */
+  --grok-blue-dim: #00c4c4;
+  --grok-purple: #7209b7; /* Deep cosmic purple accent */
+  --grok-purple-glow: #9d4edd;
+  --grok-text: #e0fbfc;
+  --grok-text-muted: #94a3b8;
+  --grok-glass: rgba(0, 8, 20, 0.65);
+  --grok-border: rgba(0, 242, 234, 0.15);
+
+  /* Glows & Shadows */
+  --glow-blue: 0 0 20px rgba(0, 242, 234, 0.5);
+  --glow-purple: 0 0 20px rgba(157, 78, 221, 0.4);
+  --shadow-card: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto Mono", monospace;
+  background: radial-gradient(
+      circle at 20% 80%,
+      #0a001f 0%,
+      #000814 40%,
+      #000000 100%
+    ),
+    radial-gradient(circle at 80% 20%, #001529 0%, transparent 50%);
+  background-attachment: fixed;
+  color: var(--grok-text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* Cosmic animated particles background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(
+      2px 2px at 20px 30px,
+      #00f2ea20,
+      transparent
+    ),
+    radial-gradient(2px 2px at 80px 100px, #9d4edd20, transparent),
+    radial-gradient(1px 1px at 140px 60px, #00f2ea30, transparent);
+  background-size: 200px 200px;
+  background-repeat: repeat;
+  animation: drift 60s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes drift {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(100px, 100px);
+  }
+}
+
+#content {
+  width: 100%;
+  max-width: 70rem;
+  margin: 1.5rem;
+  padding: 3rem 3.5rem 3.5rem;
+  background: var(--grok-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--grok-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle inner glow */
+#content::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 242, 234, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: slow-rotate 40s linear infinite;
+}
+
+@keyframes slow-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+h1 {
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+  font-weight: 900;
+  font-size: 2.5rem;
+  letter-spacing: 8px;
+  margin: 0 0 1rem;
+  background: linear-gradient(90deg, var(--grok-blue), var(--grok-purple-glow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: var(--glow-blue);
+  text-transform: uppercase;
+}
+
+header p {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--grok-text-muted);
+  letter-spacing: 1px;
+  margin-bottom: 3rem;
+}
+
+/* Overall app layout */
+.layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.layout-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.layout-column--controls {
+  min-width: 0;
+}
+
+.section-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grok-text-muted);
+}
+
+/* Player summary above challenge */
+.player-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  font-size: 0.95rem;
+  color: var(--grok-text-muted);
+}
+
+.player-summary p {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.player-summary-name {
+  font-weight: 500;
+}
+
+.player-summary-diff strong {
+  color: var(--grok-purple-glow);
+}
+
+.player-summary-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.player-summary-time input {
+  width: 5rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--grok-blue-dim);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--grok-text);
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.player-summary-time input:focus {
+  outline: none;
+  border-color: var(--grok-blue);
+  box-shadow: var(--glow-blue);
+}
+
+/* Player Input */
+#player {
+  background: rgba(0, 15, 40, 0.4);
+  border: 1px solid var(--grok-border);
+  border-radius: 16px;
+  padding: 2.25rem 2.5rem;
+  max-width: 520px;
+  min-height: 260px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+#player h2 {
+  font-family: "Orbitron", sans-serif;
+  color: var(--grok-blue);
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+  letter-spacing: 3px;
+  min-height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-subtitle {
+  margin: 0 0 1.75rem;
+  color: var(--grok-text-muted);
+  font-size: 0.95rem;
+}
+
+.player-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.player-controls-row {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0;
+}
+
+#player input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--grok-blue-dim);
+  color: #fff;
+  padding: 1rem 1.2rem;
+  border-radius: 12px 0 0 12px;
+  font-size: 1.1rem;
+  outline: none;
+  width: 70%;
+  min-width: 0;
+}
+
+#player input:focus {
+  border-color: var(--grok-blue);
+  box-shadow: var(--glow-blue);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.player-difficulty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--grok-text-muted);
+}
+
+.player-difficulty label {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.85rem;
+}
+
+.player-difficulty select {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 999px;
+  border: 1px solid var(--grok-blue-dim);
+  color: var(--grok-text);
+  padding: 0.45rem 1.5rem 0.45rem 0.9rem;
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.player-difficulty select:focus {
+  border-color: var(--grok-blue);
+  box-shadow: var(--glow-blue);
+}
+
+#player button {
+  font-family: "Orbitron", sans-serif;
+  background: linear-gradient(135deg, var(--grok-blue-dim), var(--grok-blue));
+  color: #000;
+  border: 1px solid var(--grok-blue);
+  padding: 1rem 2rem;
+  border-radius: 0 12px 12px 0;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  min-width: 7rem;
+}
+
+#player button:hover {
+  box-shadow: var(--glow-blue);
+  transform: translateY(-2px);
+}
+
+#player button:disabled {
+  opacity: 0.4;
+  cursor: default;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Challenges Grid */
+#challenges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.challenge {
+  background: rgba(10, 20, 40, 0.5);
+  border: 1px solid rgba(0, 242, 234, 0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.challenge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--grok-blue), var(--grok-purple));
+}
+
+.challenge:hover {
+  transform: translateY(-12px);
+  border-color: var(--grok-blue);
+  box-shadow: 0 20px 40px rgba(0, 242, 234, 0.15);
+}
+
+.challenge h2 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 2.2rem;
+  margin: 0 0 1rem;
+  color: var(--grok-blue);
+  text-shadow: var(--glow-blue);
+}
+
+.challenge-time {
+  background: rgba(0, 242, 234, 0.1);
+  border: 1px solid var(--grok-blue);
+  color: var(--grok-blue);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-family: "Orbitron", sans-serif;
+}
+
+.challenge button {
+  margin-top: auto;
+  padding: 0.9rem 2.5rem;
+  background: transparent;
+  border: 1px solid var(--grok-blue);
+  color: var(--grok-blue);
+  border-radius: 50px;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.challenge button:hover {
+  background: var(--grok-blue);
+  color: #000;
+  box-shadow: var(--glow-blue);
+}
+
+/* Difficulty selector & controls inside challenge */
+.challenge label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0 0.75rem;
+  font-size: 1rem;
+  color: var(--grok-text-muted);
+}
+
+.challenge input[type="number"] {
+  width: 6rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--grok-blue-dim);
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--grok-text);
+  font-family: "Roboto Mono", monospace;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.challenge input[type="number"]:focus {
+  outline: none;
+  border-color: var(--grok-blue);
+  box-shadow: var(--glow-blue);
+}
+
+.challenge p {
+  margin: 0.5rem 0;
+}
+
+.challenge p:nth-of-type(2) {
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--grok-purple-glow);
+  text-transform: uppercase;
+}
+
+/* Result Modal */
+.result-modal {
+  background: rgba(0, 8, 20, 0.95);
+  border: 1px solid var(--grok-blue);
+  border-radius: 20px;
+  padding: 3rem;
+  color: white;
+  box-shadow: 0 0 60px rgba(0, 242, 234, 0.3);
+}
+
+.result-modal h2 {
+  font-family: "Orbitron", sans-serif;
+  font-size: 4rem;
+  color: var(--grok-blue);
+  text-shadow: var(--glow-blue);
+  letter-spacing: 4px;
+}
+
+.result-modal progress::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--grok-blue), var(--grok-purple-glow));
+  box-shadow: var(--glow-blue);
+}
+
+.result-modal button {
+  background: var(--grok-blue);
+  color: #000;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+}
+
+.result-modal button:hover {
+  box-shadow: var(--glow-blue);
+  transform: scale(1.08);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 2rem;
+    letter-spacing: 3px;
+  }
+  #content {
+    padding: 1.75rem;
+    margin: 1rem;
+  }
+
+  .layout {
+    gap: 2rem;
+  }
+
+  .player-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .player-summary-time {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .player-controls {
+    gap: 0.75rem;
+  }
+
+  #player input {
+    border-radius: 12px;
+    width: 100%;
+  }
+
+  #player button {
+    border-radius: 12px;
+    width: 100%;
+  }
+
+  #challenges {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .challenge {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .challenge h2 {
+    font-size: 1.6rem;
+  }
+
+  .result-modal {
+    padding: 2rem 1.5rem;
+  }
+
+  .result-modal h2 {
+    font-size: 2.4rem;
+    letter-spacing: 2px;
+  }
+}
